@@ -1,0 +1,78 @@
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Array Method Implementation</title>
+</head>
+<body>
+ <script src="../simpletest.js"></script>
+ <script>
+  function find(array, callback, configurableThis) {
+    'use strict';
+    let findCallback = callback;
+    findCallback = callback.bind(configurableThis);
+
+     for(let i = 0; i < array.length; i++) {
+     if(findCallback(array[i], i, array)) {
+       return array[i];
+     };
+   }
+   return undefined;
+  }
+
+  tests({
+    'It should run callback for each element in the array': function() {
+      let timesCallbackHasRun = 0;
+      find([1, 2], function() {
+        timesCallbackHasRun++;
+      });
+      eq(timesCallbackHasRun, 2);
+    },
+    'It should return the current element in the array as the first argument to callback': function() {
+      find([1], function(element) {
+        eq(element, 1);
+      });
+    },
+
+    'It should return the current index of the current element in the array as the second argument to the callback.' : function() {
+      find([1], function(element, index) {
+        eq(index, 0);
+      });
+     },
+    'It should have access to the array find is being called upon' : function() {
+      let testArray = [1, 2, 3];
+      find(testArray, function(element, index, currentArray) {
+        eq(currentArray, testArray);
+      });
+     },
+     'It should have a configurable this object.': function() {
+       find([1], function() {
+         eq(this.description, 'Configurable this object');
+       }, {description: 'Configurable this object'});
+     },
+     'It should set this to be undefined if a configurable this is not provided.': function() {
+       let callbackFunction = function() {};
+       find([1], function() {
+         eq(this, undefined);
+       }, undefined);
+     },
+     'It should return the first true value from the callback that is encountered.': function() {
+       let foundValue = find([1, 2, 3], function(number) {
+         return number > 1;
+       });
+       eq(foundValue, 2);
+     },
+     'It should return undefined if the callback is false.': function() {
+       let falseValue = find([1, 2, 3], function(number) {
+         return number > 3;
+       });
+       eq(falseValue, undefined);
+     }
+
+
+
+  })
+ </script>
+</body>
+</html>

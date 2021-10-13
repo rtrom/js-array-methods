@@ -1,0 +1,15 @@
+{
+  "name": "js-array-methods",
+  "version": "1.0.0",
+  "description": "Collection of standard array methods in JS implemented from scratch for learning purposes",
+  "main": "index.js",
+  "repository": "https://github.com/rtrom/js-array-methods",
+  "author": "rtrom <rhett.trom@pm.me>",
+  "license": "MIT",
+  "devDependencies": {
+    "jest": "^27.2.5"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}
