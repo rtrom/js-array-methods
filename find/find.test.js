@@ -46,12 +46,6 @@ test('It should return the current index of the current element in the array as 
    }, {description: 'Configurable this object'});
  });
 
- test('It should set this to be undefined if a configurable this is not provided.', () => {
-   find([1], function() {
-     expect(this).toBeUndefined();
-   }, undefined);
- });
-
  test('It should return the first true value from the callback that is encountered.', () => {
    let foundValue = find([1, 2, 3], function(number) {
     return number > 1;

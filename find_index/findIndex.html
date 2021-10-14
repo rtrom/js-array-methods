@@ -1,0 +1,33 @@
+
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find Array Method Implementation</title>
+</head>
+<body>
+ <script src="../simpletest.js"></script>
+ <script>
+
+function findIndex(array, callback) {
+
+        for (var i = 0; i < array.length; i++) {
+                callback(array[i]);
+                         
+        }
+}
+
+  tests({
+    'It should run callback for each element in the array': function() {
+      var timesCallbackHasRun = 0;
+      findIndex([1, 2], function() {
+        timesCallbackHasRun++;
+      });
+      eq(timesCallbackHasRun, 2);
+    },
+
+  })
+ </script>
+</body>
+</html>
